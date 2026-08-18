@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tournament-nexx-app
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
