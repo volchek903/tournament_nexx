@@ -46,6 +46,10 @@ class StateService:
             self._save()
         else:
             self.state = recalculate_users(AppStateData.model_validate(snapshot))
+            for tournament in self.state.tournaments:
+                if tournament.status == "registration":
+                    build_tournament_structure(tournament, tournament.participantIds)
+            self._save()
 
     def _save(self) -> None:
         write_state(self.state.model_dump(mode="json"), now_iso())
